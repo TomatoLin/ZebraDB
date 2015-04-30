@@ -36,6 +36,8 @@ void zebraRPush(redisDb *db, struct redisCommand *cmd, robj **argv, int argc) {
 }
 
 int loadLevelDB(char *path) {
+  redisLog(REDIS_NOTICE, "load leveldb path: %s", path);
+
   struct redisClient *fakeClient;
   int old_leveldb_state = server.leveldb_state;
   long loops = 0;
