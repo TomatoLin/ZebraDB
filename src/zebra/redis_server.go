@@ -106,7 +106,7 @@ func RedisProcess(rw *net.TCPConn) {
 				}
 			}
 		} else if bytes.Equal(CMD, CMD_OP_SIZE) {
-			if dl%2 == 0 {
+			if dl == 1 || dl%2 == 0 {
 				e = client.WriteRespone("param no enough")
 			} else {
 				e = client.WriteRespone(gDB.Size(data[1:]))
