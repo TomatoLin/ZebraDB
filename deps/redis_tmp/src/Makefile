@@ -76,7 +76,7 @@ endif
 endif
 endif
 # Include paths to dependencies
-FINAL_CFLAGS+= -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -I/home/sj/ZebraDB/deps/include
+FINAL_CFLAGS+= -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -IZebraDB_PATH/deps/include
 
 ifeq ($(MALLOC),tcmalloc)
 	FINAL_CFLAGS+= -DUSE_TCMALLOC
@@ -168,7 +168,7 @@ endif
 
 # redis-server
 $(REDIS_SERVER_NAME): $(REDIS_SERVER_OBJ)
-	$(REDIS_LD) -o $@ $^  ../deps/hiredis/libhiredis.a ../deps/lua/src/liblua.a -lstdc++ /home/sj/ZebraDB/deps/libs/libleveldb.a /home/sj/ZebraDB/deps/libs/libsnappy.a -pthread $(FINAL_LIBS)
+	$(REDIS_LD) -o $@ $^  ../deps/hiredis/libhiredis.a ../deps/lua/src/liblua.a -lstdc++ ZebraDB_PATH/deps/libs/libleveldb.a ZebraDB_PATH/deps/libs/libsnappy.a -pthread $(FINAL_LIBS)
 
 # redis-sentinel
 $(REDIS_SENTINEL_NAME): $(REDIS_SERVER_NAME)
