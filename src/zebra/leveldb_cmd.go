@@ -384,6 +384,13 @@ func (this *LevelDB) Dump(data []byte) error {
 		l4g.Error("dump %s error: %s", data, err.Error())
 		return errors.New(fmt.Sprintf("dump %s error: %s", data, err.Error()))
 	}
+
+	prop := "\n" + newDB.PropertyValue("leveldb.stats")
+	l4g.Info("dump info, path: %s%s", data, prop)
+	newDB.CompactRange(levigo.Range{nil, nil})
+	prop = "\n" + newDB.PropertyValue("leveldb.stats")
+	l4g.Info("dump compact info: %s", prop)
+
 	return nil
 }
 
