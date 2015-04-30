@@ -2,10 +2,11 @@
 
 SNAPPY="snappy-1.1.1"
 LEVELDB="leveldb-1.18"
+REDIS="redis-2.8.19"
 
 DIR=`pwd`
 
-rm -rf deps/include deps/libs deps/${SNAPPY} deps/${LEVELDB} || exit 1
+rm -rf deps/include deps/libs deps/${SNAPPY} deps/${LEVELDB} deps/${REDIS} || exit 1
 
 cd deps/ && mkdir libs 
 
@@ -26,7 +27,11 @@ tar -zxf ${LEVELDB}.tar.gz && cd ${LEVELDB} &&  make || exit 1
 cp libleveldb.a ../libs
 mv include ../
 
-cd ../redis-2.8.19 
+cd ../
+
+tar -zxf ${REDIS}.tar.gz 
+cp -r redis_tmp/* ${REDIS}/
+cd $REDIS
 
 sed -i "s,ZebraDB_PATH,${DIR},g" src/Makefile 
 sed -i "s,ZebraDB_PATH,${DIR}," redis.conf 
